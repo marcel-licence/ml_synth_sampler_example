@@ -45,6 +45,8 @@
 /*
  * includes
  */
+#include <Arduino.h>
+
 #include <ml_sampler.h>
 #include <ml_status.h>
 

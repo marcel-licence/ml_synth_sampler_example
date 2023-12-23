@@ -269,7 +269,7 @@ void SF2ToSmpl_LoadCompleteSoundFont(void)
 
     for (uint32_t i = 0; i < offset->phdr_cnt - 1; i++)
     {
-        if (loadPresetMultiBag(i, LoadSampleFromInfo))
+        if (ML_SF2_LoadPresetMultiBag(i, LoadSampleFromInfo))
         {
             Sampler_InstrumentDone();
         }

@@ -67,7 +67,7 @@
 #include <ml_vibrato.h>
 #include <ml_pitch_shifter.h>
 #include <ml_utils.h>
-#include <ml_signal_bar.h>
+
 
 #ifdef OLED_OSC_DISP_ENABLED
 #include <ml_scope.h>
@@ -110,29 +110,6 @@ ML_PitchShifter pitchShifter(SAMPLE_RATE);
 
 char shortName[] = "ML_Sampler";
 
-
-float BarInL_buffer[SAMPLE_BUFFER_SIZE];
-ML_SigBar BarInL(BarInL_buffer, SAMPLE_BUFFER_SIZE);
-
-float BarInR_buffer[SAMPLE_BUFFER_SIZE];
-ML_SigBar BarInR(BarInR_buffer, SAMPLE_BUFFER_SIZE);
-
-float BarLfo_buffer[SAMPLE_BUFFER_SIZE];
-ML_SigBar BarLfo(BarLfo_buffer, SAMPLE_BUFFER_SIZE);
-
-float BarLfo1_buffer[SAMPLE_BUFFER_SIZE];
-ML_SigBar BarLfo1(BarLfo1_buffer, SAMPLE_BUFFER_SIZE);
-
-float BarL_buffer[SAMPLE_BUFFER_SIZE];
-ML_SigBar BarL(BarL_buffer, SAMPLE_BUFFER_SIZE);
-
-float BarR_buffer[SAMPLE_BUFFER_SIZE];
-ML_SigBar BarR(BarR_buffer, SAMPLE_BUFFER_SIZE);
-
-
-#ifdef SAMPLER_STATIC_BUFFER_SIZE
-int16_t sample_buffer[SAMPLER_STATIC_BUFFER_SIZE];
-#endif
 
 #ifdef SAMPLER_DYNAMIC_BUFFER_SIZE
 int16_t *sample_buffer;
@@ -195,8 +172,9 @@ void setup(void)
 
     Sampler_Init(SAMPLE_RATE);
 
-#ifdef ARDUINO_ARCH_RP2040
-    Sampler_UseStaticBuffer();
+#ifdef SAMPLER_STATIC_BUFFER_SAMPLE_CNT
+    static Q1_14 buffer[SAMPLER_STATIC_BUFFER_SAMPLE_CNT];
+    Sampler_UseStaticBuffer(buffer, SAMPLER_STATIC_BUFFER_SAMPLE_CNT);
 #endif
 
 
@@ -467,9 +445,6 @@ void loop(void)
 
     mul(left, inputGain, left, SAMPLE_BUFFER_SIZE);
     mul(right, inputGain, right, SAMPLE_BUFFER_SIZE);
-
-    BarInL.PushSamplesToBar(left, SAMPLE_BUFFER_SIZE);
-    BarInR.PushSamplesToBar(right, SAMPLE_BUFFER_SIZE);
 #endif
 
     Sampler_Process(left, right, SAMPLE_BUFFER_SIZE);
@@ -480,7 +455,6 @@ void loop(void)
     mixStereoToMono(left, right, mono, SAMPLE_BUFFER_SIZE);
 
     Reverb_Process(mono, SAMPLE_BUFFER_SIZE);
-
 
     lfo2.Process(SAMPLE_BUFFER_SIZE);
 
@@ -499,7 +473,6 @@ void loop(void)
     {
         Phaser_Process(mono, lfo1_buffer, mono, SAMPLE_BUFFER_SIZE);
     }
-
 
     if (hq_enabled)
     {

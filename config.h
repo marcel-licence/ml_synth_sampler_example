@@ -14,15 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Dieses Programm ist Freie Software: Sie können es unter den Bedingungen
+ * Dieses Programm ist Freie Software: Sie kï¿½nnen es unter den Bedingungen
  * der GNU General Public License, wie von der Free Software Foundation,
  * Version 3 der Lizenz oder (nach Ihrer Wahl) jeder neueren
- * veröffentlichten Version, weiter verteilen und/oder modifizieren.
+ * verï¿½ffentlichten Version, weiter verteilen und/oder modifizieren.
  *
- * Dieses Programm wird in der Hoffnung bereitgestellt, dass es nützlich sein wird, jedoch
- * OHNE JEDE GEWÄHR,; sogar ohne die implizite
- * Gewähr der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
- * Siehe die GNU General Public License für weitere Einzelheiten.
+ * Dieses Programm wird in der Hoffnung bereitgestellt, dass es nï¿½tzlich sein wird, jedoch
+ * OHNE JEDE GEWï¿½HR,; sogar ohne die implizite
+ * Gewï¿½hr der MARKTFï¿½HIGKEIT oder EIGNUNG Fï¿½R EINEN BESTIMMTEN ZWECK.
+ * Siehe die GNU General Public License fï¿½r weitere Einzelheiten.
  *
  * Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
  * Programm erhalten haben. Wenn nicht, siehe <https://www.gnu.org/licenses/>.
@@ -49,13 +49,16 @@
 #define STATUS_SIMPLE
 
 
+/*
+ * it may be required to define your own board including the pin configuration
+ */
 #if (defined ARDUINO_RASPBERRY_PI_PICO) || (defined ARDUINO_ARCH_RP2040)
 #define BOARD_ML_PICO_SYNTH
 #endif
 
 #ifdef ESP32
-#define BOARD_ML_SYNTH_V2
-//#define BOARD_ESP32_AUDIO_KIT_AC101
+//#define BOARD_ML_SYNTH_V2
+#define BOARD_ESP32_AUDIO_KIT_AC101
 #endif
 
 #include <ml_boards.h>
@@ -73,7 +76,7 @@
 #define SAMPLE_HDR_CNT  3
 #define RP2040_AUDIO_PWM
 #define MAX_DELAY_Q 24000
-#define SAMPLER_STATIC_BUFFER_SIZE  (1024 * 16)
+#define SAMPLER_STATIC_BUFFER_SAMPLE_CNT   (1024 * 48)
 #endif
 
 #define MIDI_FMT_INT
