@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Marcel Licence
+ * Copyright (c) 2024 Marcel Licence
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -49,7 +49,7 @@
 
 #include "config.h"
 #include "sf_to_sampler.h"
-#include "fs_access.h"
+#include "fs/fs_access.h"
 
 #include <ml_types.h>
 #include <ml_status.h>

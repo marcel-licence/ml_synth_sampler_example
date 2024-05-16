@@ -7,8 +7,8 @@ Below you will find a list of build which can be configured and should compile w
 <b>Version:</b> 2.0.13<br />
 <b>Board:</b> ESP32 Dev Module<br />
 <br />
-<b>Program storage space:</b> 927017 bytes<br />
-<b>Dynamic memory:</b> 99140 bytes<br />
+<b>Program storage space:</b> 853861 bytes<br />
+<b>Dynamic memory:</b> 98292 bytes<br />
 <br />
 <b>JTAG Adapter:</b> Disabled<br />
 <b>PSRAM:</b> Enabled<br />
@@ -34,7 +34,7 @@ Below you will find a list of build which can be configured and should compile w
     </tr>
     <tr>
         <td>ML SynthTools</td>
-        <td>1.2.0</td>
+        <td>1.3.1</td>
         <td>https://github.com/marcel-licence/ML_SynthTools</td>
         <td>https://github.com/marcel-licence/ML_SynthTools.git</td>
         <td>False</td>
@@ -90,16 +90,9 @@ Below you will find a list of build which can be configured and should compile w
     </tr>
     <tr>
         <td>Adafruit GFX Library</td>
-        <td>1.10.10</td>
+        <td>1.11.5</td>
         <td>https://github.com/adafruit/Adafruit-GFX-Library</td>
-        <td></td>
-        <td>False</td>
-    </tr>
-    <tr>
-        <td>Adafruit SSD1306</td>
-        <td>2.4.5</td>
-        <td>https://github.com/adafruit/Adafruit_SSD1306</td>
-        <td></td>
+        <td>https://github.com/adafruit/Adafruit-GFX-Library</td>
         <td>False</td>
     </tr>
     <tr>
@@ -109,13 +102,20 @@ Below you will find a list of build which can be configured and should compile w
         <td>https://github.com/adafruit/Adafruit_BusIO</td>
         <td>False</td>
     </tr>
+    <tr>
+        <td>Adafruit SSD1306</td>
+        <td>2.5.7</td>
+        <td>https://github.com/adafruit/Adafruit_SSD1306</td>
+        <td>https://github.com/adafruit/Adafruit_SSD1306</td>
+        <td>False</td>
+    </tr>
 </table><hr>
 <a name="rp2040_rp2040_generic"></a><b>Core:</b> <a h_ref="https://github.com/earlephilhower/arduino-pico">Raspberry Pi RP2040 Boards</a><br />
 <b>Version:</b> 3.2.0<br />
 <b>Board:</b> Generic RP2040<br />
 <br />
-<b>Program storage space:</b> 138268 bytes<br />
-<b>Dynamic memory:</b> 250324 bytes<br />
+<b>Program storage space:</b> 141628 bytes<br />
+<b>Dynamic memory:</b> 249152 bytes<br />
 <br />
 <b>Flash Size:</b> 8MB (Sketch: 4MB, FS: 4MB)<br />
 <b>CPU Speed:</b> 133 MHz<br />
@@ -141,7 +141,7 @@ Below you will find a list of build which can be configured and should compile w
     </tr>
     <tr>
         <td>ML SynthTools</td>
-        <td>1.2.0</td>
+        <td>1.3.1</td>
         <td>https://github.com/marcel-licence/ML_SynthTools</td>
         <td>https://github.com/marcel-licence/ML_SynthTools.git</td>
         <td>False</td>
@@ -175,24 +175,24 @@ Below you will find a list of build which can be configured and should compile w
         <td>True</td>
     </tr>
     <tr>
-        <td>Adafruit TinyUSB Library</td>
-        <td>1.14.4</td>
-        <td>https://github.com/adafruit/Adafruit_TinyUSB_Arduino</td>
-        <td></td>
-        <td>False</td>
-    </tr>
-    <tr>
-        <td>MIDI Library</td>
-        <td>5.0.2</td>
-        <td>https://github.com/FortySevenEffects/arduino_midi_library</td>
-        <td></td>
-        <td>False</td>
-    </tr>
-    <tr>
         <td>LittleFS</td>
         <td>0.1.0</td>
         <td>https://github.com/earlephilhower/arduino-pico</td>
         <td></td>
         <td>True</td>
+    </tr>
+    <tr>
+        <td>Adafruit TinyUSB Library</td>
+        <td>2.1.0</td>
+        <td>https://github.com/adafruit/Adafruit_TinyUSB_Arduino</td>
+        <td></td>
+        <td>True</td>
+    </tr>
+    <tr>
+        <td>MIDI Library</td>
+        <td>5.0.2</td>
+        <td>https://github.com/FortySevenEffects/arduino_midi_library</td>
+        <td>https://github.com/FortySevenEffects/arduino_midi_library.git</td>
+        <td>False</td>
     </tr>
 </table>

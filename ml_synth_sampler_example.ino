@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Marcel Licence
+ * Copyright (c) 2024 Marcel Licence
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -80,7 +80,7 @@
 #include <ml_soundfont.h>
 
 
-#include "fs_access.h"
+#include "fs/fs_access.h"
 
 /* centralized modules */
 #define ML_SYNTH_INLINE_DECLARATION
@@ -130,6 +130,29 @@ void setup(void)
     Serial.printf("Hallo\n");
     delay(1000);
     Serial.printf("ml_sampler\n");
+
+#if defined ESP_IDF_VERSION_MAJOR and  defined ESP_IDF_VERSION_MINOR and defined ESP_IDF_VERSION_PATCH
+    /* @see https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/misc_system_api.html#sdk-version */
+    Serial.printf("ESP IDF Version: %d, %d, %d\n", ESP_IDF_VERSION_MAJOR, ESP_IDF_VERSION_MINOR, ESP_IDF_VERSION_PATCH);
+#endif
+#ifdef CHIP_FEATURE_EMB_FLASH
+    Serial.printf("Chip has embedded flash memory.\n");
+#endif
+#ifdef CHIP_FEATURE_WIFI_BGN
+    Serial.printf("Chip has 2.4GHz WiFi.\n");
+#endif
+#ifdef CHIP_FEATURE_BLE
+    Serial.printf("Chip has Bluetooth LE.\n");
+#endif
+#ifdef CHIP_FEATURE_BT
+    Serial.printf("Chip has Bluetooth Classic.\n");
+#endif
+#ifdef CHIP_FEATURE_IEEE802154
+    Serial.printf("Chip has IEEE 802.15.4.\n");
+#endif
+#ifdef CHIP_FEATURE_EMB_PSRAM
+    Serial.printf("Chip has embedded psram.\n");
+#endif
 
 
 #ifdef ML_BOARD_SETUP
@@ -689,9 +712,4 @@ void PitchShifter_SetMix(uint8_t unused __attribute__((unused)), uint8_t value)
 void PitchShifter_SetFeedback(uint8_t unused __attribute__((unused)), uint8_t value)
 {
     pitchShifter.setFeedback(floatFromU7(value));
-}
-
-void Status_LogMessage(const char *text)
-{
-    Serial.printf("%s\n", text);
 }
