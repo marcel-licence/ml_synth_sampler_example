@@ -7,8 +7,8 @@ Below you will find a list of build which can be configured and should compile w
 <b>Version:</b> 2.0.13<br />
 <b>Board:</b> ESP32 Dev Module<br />
 <br />
-<b>Program storage space:</b> 853861 bytes<br />
-<b>Dynamic memory:</b> 98292 bytes<br />
+<b>Program storage space:</b> 916185 bytes<br />
+<b>Dynamic memory:</b> 98988 bytes<br />
 <br />
 <b>JTAG Adapter:</b> Disabled<br />
 <b>PSRAM:</b> Enabled<br />
@@ -88,33 +88,12 @@ Below you will find a list of build which can be configured and should compile w
         <td>https://github.com/espressif/arduino-esp32.git</td>
         <td>True</td>
     </tr>
-    <tr>
-        <td>Adafruit GFX Library</td>
-        <td>1.11.5</td>
-        <td>https://github.com/adafruit/Adafruit-GFX-Library</td>
-        <td>https://github.com/adafruit/Adafruit-GFX-Library</td>
-        <td>False</td>
-    </tr>
-    <tr>
-        <td>Adafruit BusIO</td>
-        <td>1.14.1</td>
-        <td>https://github.com/adafruit/Adafruit_BusIO</td>
-        <td>https://github.com/adafruit/Adafruit_BusIO</td>
-        <td>False</td>
-    </tr>
-    <tr>
-        <td>Adafruit SSD1306</td>
-        <td>2.5.7</td>
-        <td>https://github.com/adafruit/Adafruit_SSD1306</td>
-        <td>https://github.com/adafruit/Adafruit_SSD1306</td>
-        <td>False</td>
-    </tr>
 </table><hr>
 <a name="rp2040_rp2040_generic"></a><b>Core:</b> <a h_ref="https://github.com/earlephilhower/arduino-pico">Raspberry Pi RP2040 Boards</a><br />
 <b>Version:</b> 3.2.0<br />
 <b>Board:</b> Generic RP2040<br />
 <br />
-<b>Program storage space:</b> 141628 bytes<br />
+<b>Program storage space:</b> 141636 bytes<br />
 <b>Dynamic memory:</b> 249152 bytes<br />
 <br />
 <b>Flash Size:</b> 8MB (Sketch: 4MB, FS: 4MB)<br />
