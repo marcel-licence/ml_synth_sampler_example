@@ -59,7 +59,9 @@
 #ifdef REVERB_ENABLED
 #include <ml_reverb.h>
 #endif
-#include <ml_delay.h>
+#ifdef MAX_DELAY_Q
+#include <ml_delay_q.h>
+#endif
 #include <ml_phaser.h>
 #include <ml_tremolo.h>
 #include <ml_lfo.h>
