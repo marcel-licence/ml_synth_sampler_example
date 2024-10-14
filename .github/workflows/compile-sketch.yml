@@ -45,6 +45,8 @@ jobs:
               - source-url: https://github.com/adafruit/Adafruit_BusIO.git
                 name: Adafruit BusIO
                 version: 1.14.1
+              - source-url: https://github.com/marcel-licence/AC101.git
+                name: AC101
 
   build_rp2040:
 
