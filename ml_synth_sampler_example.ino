@@ -655,9 +655,11 @@ void AppVibrato_SetIntensity(uint8_t param __attribute__((unused)), uint8_t valu
  */
 void App_DelayQ_SetLength(uint8_t unused __attribute__((unused)), uint8_t value)
 {
+#ifdef MAX_DELAY_Q
     uint32_t val32 = value;
     val32 *= 189;
     DelayQ_SetLength(unused, val32);
+#endif
 }
 
 /**
