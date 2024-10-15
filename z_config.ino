@@ -84,10 +84,17 @@ struct midiControllerMapping edirolMapping[] =
     { 0x0, 0x40, "sustain", NULL, NULL, 0},
 
     /* transport buttons */
+#ifdef MIDI_STREAM_PLAYER_ENABLED
+    { 0x8, 0x52, "back", NULL, MidiStreamPlayerCtrl, MIDI_STREAM_PLAYER_CTRL_PAUSE},
+    { 0xD, 0x52, "stop", NULL, NULL, 0},
+    { 0xe, 0x52, "start", NULL, MidiStreamPlayerCtrl, MIDI_STREAM_PLAYER_CTRL_START},
+    { 0xa, 0x52, "rec", NULL, NULL, 0},
+#else
     { 0x8, 0x52, "back", NULL, NULL, 0},
     { 0xD, 0x52, "stop", NULL, NULL, 0},
     { 0xe, 0x52, "start", NULL, Sampler_LoopEntireSample, 0},
     { 0xa, 0x52, "rec", NULL, NULL, 0},
+#endif
 
     /* upper row of buttons */
     { 0x0, 0x50, "A1", NULL, AppBtn, 0},

@@ -49,11 +49,16 @@
 #define STATUS_SIMPLE
 
 
+// #define MIDI_STREAM_PLAYER_ENABLED /* activate this to use the midi stream playback module */
+
+
 /*
  * it may be required to define your own board including the pin configuration
  */
 #if (defined ARDUINO_RASPBERRY_PI_PICO) || (defined ARDUINO_ARCH_RP2040)
+#ifndef __ARM_FEATURE_DSP
 #define BOARD_ML_PICO_SYNTH
+#endif
 #endif
 
 #ifdef ESP32
@@ -73,11 +78,40 @@
 #define SERIAL_BAUDRATE 115200
 
 #if (defined ARDUINO_RASPBERRY_PI_PICO) || (defined ARDUINO_ARCH_RP2040)
+#ifndef __ARM_FEATURE_DSP
 #define SAMPLE_HDR_CNT  3
 #define RP2040_AUDIO_PWM
 #define MAX_DELAY_Q 24000
 #define SAMPLER_STATIC_BUFFER_SAMPLE_CNT   (1024 * 48)
 #endif
+#endif
+
+/*
+ * configuration for the Raspberry Pi Pico 2
+ * BOARD: Raspberry Pi RP2040 (4.0.1)
+ * Device: Raspberry Pi Pico 2
+ */
+#ifdef ARDUINO_ARCH_RP2040
+#ifdef __ARM_FEATURE_DSP
+//#define MAX_DELAY 8096
+#define PICO_AUDIO_I2S
+#define PICO_AUDIO_I2S_DATA_PIN 26
+#define PICO_AUDIO_I2S_CLOCK_PIN_BASE 27
+#define SAMPLE_BUFFER_SIZE  48
+#define SAMPLE_RATE  48000
+#define MIDI_RX1_PIN    13
+#define MIDI_TX1_PIN    12
+//#define WS2812_PIN  3
+//#define LED_COUNT 4
+#define LED_PIN LED_BUILTIN
+#define BLINK_LED_PIN LED_BUILTIN
+//#define WS2812_PIN 3
+#define STATUS_SIMPLE
+//#define REVERB_ENABLED
+#define SAMPLER_STATIC_BUFFER_SAMPLE_CNT   (1024 * 128)
+#endif
+#endif
+
 
 #define MIDI_FMT_INT
 

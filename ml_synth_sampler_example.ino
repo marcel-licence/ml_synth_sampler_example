@@ -302,6 +302,13 @@ void setup(void)
 
     //Sampler_NoteOn(0, 69, 127);
 
+#ifdef MIDI_STREAM_PLAYER_ENABLED
+    MidiStreamPlayer_Init();
+    char midiFile[] = "/esp32_sampler_demo.mid";
+    //char midiFile[] = "/esp32_sampler_demo2.mid";
+    MidiStreamPlayer_PlayMidiFile_fromLittleFS(midiFile, 2);
+#endif
+
 #ifdef ESP32
     Core0TaskInit();
 #else

@@ -57,6 +57,8 @@
 #include <ml_sampler.h>
 
 
+#define SF2_INFO_MESSAGES
+
 /*
  * data types
  */
