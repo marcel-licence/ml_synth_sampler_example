@@ -62,8 +62,8 @@
 #endif
 
 #ifdef ESP32
-//#define BOARD_ML_SYNTH_V2
-#define BOARD_ESP32_AUDIO_KIT_AC101
+#define BOARD_ML_SYNTH_V2
+//#define BOARD_ESP32_AUDIO_KIT_AC101
 #endif
 
 #include <ml_boards.h>

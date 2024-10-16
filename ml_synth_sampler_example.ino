@@ -82,7 +82,9 @@
 #include <ml_soundfont.h>
 
 
-#include "fs/fs_access.h"
+#include <fs/fs_access.h>
+
+#include "samples/all_samples.c"
 
 /* centralized modules */
 #define ML_SYNTH_INLINE_DECLARATION
@@ -197,6 +199,14 @@ void setup(void)
 
     Sampler_Init(SAMPLE_RATE);
 
+    /*
+     * load static samples from flash assigned to note C (36) ++
+     */
+    for (uint32_t i = 0; i < sizeof(sample_list) / sizeof(sample_list[0]); i++)
+    {
+        Sampler_NewSampleStatic(sample_list[i].data, sample_list[i].len, 36 + i);
+    }
+
 #ifdef SAMPLER_STATIC_BUFFER_SAMPLE_CNT
     static Q1_14 buffer[SAMPLER_STATIC_BUFFER_SAMPLE_CNT];
     Sampler_UseStaticBuffer(buffer, SAMPLER_STATIC_BUFFER_SAMPLE_CNT);
@@ -248,7 +258,7 @@ void setup(void)
     Phaser_Init(phaser_buffer, PHASER_BUFFER_SIZE);
 
     /*
-     * Setup two LFOs, second is shifted by 90�
+     * Setup two LFOs, second is shifted by 90 degrees
      */
     lfo1.setPhase(0);
     lfo2.setPhase(M_PI / 2.0f); /* like sine and cosine */
@@ -481,7 +491,7 @@ void loop(void)
 
     Sampler_Process(left, right, SAMPLE_BUFFER_SIZE);
 
-#ifdef REVERB_ENABLED
+#ifdef xREVERB_ENABLED
     float mono[SAMPLE_BUFFER_SIZE];
 
     mixStereoToMono(left, right, mono, SAMPLE_BUFFER_SIZE);
@@ -534,7 +544,7 @@ void loop(void)
     }
 #endif
 
-#ifdef MAX_DELAY_Q
+#ifdef xMAX_DELAY_Q
     /*
      * post process delay
      */
