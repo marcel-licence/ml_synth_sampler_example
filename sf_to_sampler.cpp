@@ -411,8 +411,8 @@ void sf2_instrument_indication(union SF2Instrument_u *inst, uint32_t idx)
 void sf2_sdta_smpl_indication(uint32_t len)
 {
 #ifdef SF2_INFO_MESSAGES
-    Serial.printf("Sample in file at %u\n", getStaticPos());
-    Serial.printf("    len %u\n", len);
+    Serial.printf("Sample in file at %" PRIu32 "\n", getStaticPos());
+    Serial.printf("    len %" PRIu32 "\n", len);
 #else
     (void)len;
 #endif
