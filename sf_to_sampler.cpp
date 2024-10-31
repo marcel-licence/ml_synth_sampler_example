@@ -348,13 +348,13 @@ void SF2ToSmpl_LoadAllSamplesFromSF(fs_id_t fs_id, const char *filename)
 void sf2_preset_indication(union preset_hdr_s *preset, uint32_t idx)
 {
 #ifdef SF2_INFO_MESSAGES
-    Serial.printf("presetName[%d]: %s\n", idx, preset->presetName);
+    Serial.printf("presetName[%" PRIu32 "]: %s\n", idx, preset->presetName);
     Serial.printf("  preset: %d\n", preset->preset);
     Serial.printf("  bank: %d\n", preset->bank);
     Serial.printf("  presetBagIndex: %d\n", preset->presetBagIndex);
-    Serial.printf("  library: %d\n", preset->library);
-    Serial.printf("  genre: %d\n", preset->genre);
-    Serial.printf("  morphology: %d\n", preset->morphology);
+    Serial.printf("  library: %" PRIu32 "\n", preset->library);
+    Serial.printf("  genre: %" PRIu32 "\n", preset->genre);
+    Serial.printf("  morphology: %" PRIu32 "\n", preset->morphology);
 #else
     (void)preset;
     (void)idx;
@@ -369,12 +369,12 @@ void sf2_sample_indication(union sf2_sample_hdr_s *sample, uint32_t idx)
 #ifdef SF2_INFO_MESSAGES
     char sampleName[21] = {0};
     memcpy(sampleName, sample->sampleName, 20);
-    Serial.printf("sampleName[%d]: %s\n", idx, sampleName);
-    Serial.printf("  start: %u\n", sample->start);
-    Serial.printf("  end: %u\n", sample->end);
-    Serial.printf("  startLoop: %u\n", sample->startLoop);
-    Serial.printf("  endLoop: %u\n", sample->endLoop);
-    Serial.printf("  sampleRate: %d\n", sample->sampleRate);
+    Serial.printf("sampleName[%" PRIu32 "]: %s\n", idx, sampleName);
+    Serial.printf("  start: %" PRIu32 "\n", sample->start);
+    Serial.printf("  end: %" PRIu32 "\n", sample->end);
+    Serial.printf("  startLoop: %" PRIu32 "\n", sample->startLoop);
+    Serial.printf("  endLoop: %" PRIu32 "\n", sample->endLoop);
+    Serial.printf("  sampleRate: %" PRIu32 "\n", sample->sampleRate);
     Serial.printf("  originalPitch: %d\n", sample->originalPitch);
     Serial.printf("  pitchCorrection: %d\n", sample->pitchCorrection);
     Serial.printf("  sampleLink: %d\n", sample->sampleLink);
@@ -396,7 +396,7 @@ void sf2_instrument_indication(union SF2Instrument_u *inst, uint32_t idx)
 #ifdef SF2_INFO_MESSAGES
     char instName[21] = {0};
     strncpy(instName, inst->name, 20);
-    Serial.printf("instrument[%d]:\n", idx);
+    Serial.printf("instrument[%" PRIu32 "]:\n", idx);
     Serial.printf("  instName: %s\n", instName);
     Serial.printf("  bagIndex: %u\n", inst->bagIndex);
 #else
@@ -411,8 +411,8 @@ void sf2_instrument_indication(union SF2Instrument_u *inst, uint32_t idx)
 void sf2_sdta_smpl_indication(uint32_t len)
 {
 #ifdef SF2_INFO_MESSAGES
-    Serial.printf("Sample in file at %u\n", getStaticPos());
-    Serial.printf("    len %u\n", len);
+    Serial.printf("Sample in file at %" PRIu32 "\n", getStaticPos());
+    Serial.printf("    len %" PRIu32 "\n", len);
 #else
     (void)len;
 #endif
@@ -446,7 +446,7 @@ void sf2_preset_modulator_indication(union SF2PresetModulator_u *pmod)
 void sf2_preset_generator_indication(union SF2PresetGenerator_u *pgen, uint32_t idx)
 {
 #ifdef SF2_INFO_MESSAGES
-    Serial.printf("preset generator[%u]:\n", idx);
+    Serial.printf("preset generator[%" PRIu32 "]:\n", idx);
     Serial.printf("  generatorIndex: %u\n", pgen->generatorIndex);
     Serial.printf("  amount: %d\n", pgen->amount);
 #else
@@ -458,7 +458,7 @@ void sf2_preset_generator_indication(union SF2PresetGenerator_u *pgen, uint32_t 
 void sf2_instrument_bag_indication(union SF2InstrumentBag_u *ibag, uint32_t idx)
 {
 #ifdef SF2_INFO_MESSAGES
-    Serial.printf("instrument bag[%d]:\n", idx);
+    Serial.printf("instrument bag[%" PRIu32 "]:\n", idx);
     Serial.printf("  generatorIndex: %u\n", ibag->generatorIndex);
     Serial.printf("  modulatorIndex: %u\n", ibag->modulatorIndex);
 #else
@@ -470,7 +470,7 @@ void sf2_instrument_bag_indication(union SF2InstrumentBag_u *ibag, uint32_t idx)
 void sf2_instrument_generator_indication(union SF2InstrumentGenerator_u *igen, uint32_t idx)
 {
 #ifdef SF2_INFO_MESSAGES
-    Serial.printf("instrument generator[%d]:\n", idx);
+    Serial.printf("instrument generator[%" PRIu32 "]:\n", idx);
     Serial.printf("  ioperator: %u\n", igen->ioperator);
     Serial.printf("  amount: %u\n", igen->amount);
 #else
