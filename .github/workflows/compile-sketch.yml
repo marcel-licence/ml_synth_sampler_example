@@ -26,7 +26,9 @@ jobs:
         uses: arduino/compile-sketches@v1
         with:
           fqbn: ${{ matrix.fqbn }}
-          usbstack: tinyusb
+          cli-compile-flags: |
+            - --build-property
+            - "build.defines=-DBOARD_HAS_PSRAM -mfix-esp32-psram-cache-issue"
           platforms: |
             - name: esp32:esp32
               source-url: https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
