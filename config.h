@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Marcel Licence
+ * Copyright (c) 2024 Marcel Licence
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -63,6 +63,7 @@
 
 #ifdef ESP32
 //#define BOARD_ML_SYNTH_V2
+//#define BOARD_ESP32_AUDIO_KIT_ES8388
 #define BOARD_ESP32_AUDIO_KIT_AC101
 #endif
 

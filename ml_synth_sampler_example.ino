@@ -585,7 +585,7 @@ inline void AppBtn(uint8_t param, uint8_t value)
 
         switch (param)
         {
-#ifdef ESP32_AUDIO_KIT
+#ifdef BOARD_ESP32_AUDIO_KIT_AC101
         case 0:
             ac101_setSourceMic();
             break;
