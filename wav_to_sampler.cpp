@@ -50,7 +50,7 @@
 #include <ml_sampler.h>
 #include <ml_status.h>
 
-#include "fs/fs_access.h"
+#include <fs/fs_access.h>
 #include "utils.h"
 #include "ml_wavfile.h"
 #include "wav_to_sampler.h"
@@ -105,7 +105,7 @@ static bool wavToSmpl_WavData(union wavHeader *hdr, uint16_t bytesPerSample, uin
     if (Sampler_NewSample())
     {
         Sampler_StartTransfer();
-        while (data_to_read >= bytesPerSample)
+        while (data_to_read >= (uint32_t)bytesPerSample)
         {
             wavSampleS16 sampleData;
             uint32_t bytesRead = 0;
@@ -144,7 +144,7 @@ static bool wavToSmpl_WavData(union wavHeader *hdr, uint16_t bytesPerSample, uin
                     Serial.printf("readError %" PRIu32 "", bytesRead);
                     return false;
                 }
-                samplesInBlock = bytesRead / bytesPerSample;
+                samplesInBlock = bytesRead / (uint32_t)bytesPerSample;
             }
             // Serial.printf("%u, %u x %u\n", nextBlock, data_to_read, samplesInBlock);
 
@@ -169,7 +169,7 @@ static bool wavToSmpl_WavData(union wavHeader *hdr, uint16_t bytesPerSample, uin
         }
         Sampler_EndTransfer();
 
-        Sampler_NewSampleSetRange(0, hdr->nextTag.tag_data_size / hdr->bytesPerSample - 1); /* expecting 16 bit */
+        Sampler_NewSampleSetRange(0, hdr->nextTag.tag_data_size / (uint32_t)hdr->bytesPerSample - 1); /* expecting 16 bit */
 
 
         if (note != 0xFF)
@@ -212,6 +212,8 @@ static void wavToSmpl_ReadWaveFile(const char *filename, uint8_t note)
         Serial.printf("error reading wave header!\n");
     }
 
+    int bytesToRead = 8 + wavHdr.fileSize - bytesRead;
+
     if (wavHdr.lengthOfData > 16)
     {
         fileSeekTo(getCurrentOffset() + wavHdr.lengthOfData - 16);
@@ -229,9 +231,10 @@ static void wavToSmpl_ReadWaveFile(const char *filename, uint8_t note)
         int bytesRead = readBytes(wavHdr.nextTag.wavHdr, sizeof(wavHdr.nextTag.wavHdr));
         if (bytesRead != sizeof(wavHdr.nextTag.wavHdr))
         {
-            Serial.printf("error reading tag\n");
+            Serial.printf("error reading tag (size mismatch)\n");
             return;
         }
+        bytesToRead -= bytesRead;
     }
 
     bool wavAdded = false;
@@ -241,47 +244,56 @@ static void wavToSmpl_ReadWaveFile(const char *filename, uint8_t note)
         Serial.printf("data found\n");
 
         uint32_t data_to_read = wavHdr.nextTag.tag_data_size;
-
+        bytesToRead -= wavHdr.nextTag.tag_data_size;
         wavAdded = wavToSmpl_WavData(&wavHdr, wavHdr.bytesPerSample, data_to_read, note);
     }
 
-    bytesRead = readBytes(wavHdr.nextTag.wavHdr, sizeof(wavHdr.nextTag.wavHdr));
-    if (bytesRead != sizeof(wavHdr.nextTag.wavHdr))
+    if (bytesToRead > 0)
     {
-        Serial.printf("error reading tag\n");
-    }
+        bytesRead = readBytes(wavHdr.nextTag.wavHdr, sizeof(wavHdr.nextTag.wavHdr));
+        bytesToRead -= bytesRead;
 
-    if (memcmp(wavHdr.nextTag.tag_name, "smpl", 4) == 0)
-    {
-        union wav_tag__smpl_u smpl_tag;
-
-        int bytesRead = readBytes(smpl_tag.raw, sizeof(smpl_tag.raw));
-        if (bytesRead != sizeof(smpl_tag.raw))
+        if (bytesRead != sizeof(wavHdr.nextTag.wavHdr))
         {
-            Serial.printf("error occured reading smpl data\n");
-            return;
+            Serial.printf("error reading tag\n\tbytesRead: %d\n\tbytesToRead. %d\n", bytesRead, bytesToRead);
         }
-        Serial.printf("SMPL tag detected:\n");
-        Serial.printf("  manufacturer: %" PRIu32 "\n", smpl_tag.manufacturer);
-        Serial.printf("  product: %" PRIu32 "\n", smpl_tag.product);
-        Serial.printf("  sample_period: %" PRIu32 "\n", smpl_tag.sample_period);
-        Serial.printf("  MIDI_unity_note: %" PRIu32 "\n", smpl_tag.MIDI_unity_note);
-        Serial.printf("  MIDI_pitch_fraction: %" PRIu32 "\n", smpl_tag.MIDI_pitch_fraction);
-        Serial.printf("  SMPTE_format: %" PRIu32 "\n", smpl_tag.SMPTE_format);
-        Serial.printf("  SMPTE_offset: %" PRIu32 "\n", smpl_tag.SMPTE_offset);
-        Serial.printf("  number_of_sample_loops: %" PRIu32 "\n", smpl_tag.number_of_sample_loops);
-        Serial.printf("  sample_data: %" PRIu32 "\n", smpl_tag.sample_data);
-        Serial.printf("  sample loops:\n");
-        Serial.printf("    ID: %" PRIu32 "\n", smpl_tag.ID);
-        Serial.printf("    type: %" PRIu32 "\n", smpl_tag.type);
-        Serial.printf("    start: %" PRIu32 "\n", smpl_tag.start);
-        Serial.printf("    end: %" PRIu32 "\n", smpl_tag.end);
-        Serial.printf("    fraction: %" PRIu32 "\n", smpl_tag.fraction);
-        Serial.printf("    number_of_times_to_play_the_loop: %" PRIu32 "\n", smpl_tag.number_of_times_to_play_the_loop);
 
-        Sampler_SetPitch(smpl_tag.MIDI_unity_note, wavHdr.sampleRate, 0);
-        Sampler_NewSampleSetLoop(smpl_tag.start, smpl_tag.end);
-        Sampler_SetLoopMode(1);
+        if (memcmp(wavHdr.nextTag.tag_name, "smpl", 4) == 0)
+        {
+            union wav_tag__smpl_u smpl_tag;
+
+            int bytesRead = readBytes(smpl_tag.raw, sizeof(smpl_tag.raw));
+            if (bytesRead != sizeof(smpl_tag.raw))
+            {
+                Serial.printf("error occured reading smpl data\n");
+                return;
+            }
+            Serial.printf("SMPL tag detected:\n");
+            Serial.printf("  manufacturer: %" PRIu32 "\n", smpl_tag.manufacturer);
+            Serial.printf("  product: %" PRIu32 "\n", smpl_tag.product);
+            Serial.printf("  sample_period: %" PRIu32 "\n", smpl_tag.sample_period);
+            Serial.printf("  MIDI_unity_note: %" PRIu32 "\n", smpl_tag.MIDI_unity_note);
+            Serial.printf("  MIDI_pitch_fraction: %" PRIu32 "\n", smpl_tag.MIDI_pitch_fraction);
+            Serial.printf("  SMPTE_format: %" PRIu32 "\n", smpl_tag.SMPTE_format);
+            Serial.printf("  SMPTE_offset: %" PRIu32 "\n", smpl_tag.SMPTE_offset);
+            Serial.printf("  number_of_sample_loops: %" PRIu32 "\n", smpl_tag.number_of_sample_loops);
+            Serial.printf("  sample_data: %" PRIu32 "\n", smpl_tag.sample_data);
+            Serial.printf("  sample loops:\n");
+            Serial.printf("    ID: %" PRIu32 "\n", smpl_tag.ID);
+            Serial.printf("    type: %" PRIu32 "\n", smpl_tag.type);
+            Serial.printf("    start: %" PRIu32 "\n", smpl_tag.start);
+            Serial.printf("    end: %" PRIu32 "\n", smpl_tag.end);
+            Serial.printf("    fraction: %" PRIu32 "\n", smpl_tag.fraction);
+            Serial.printf("    number_of_times_to_play_the_loop: %" PRIu32 "\n", smpl_tag.number_of_times_to_play_the_loop);
+
+            Sampler_SetPitch(smpl_tag.MIDI_unity_note, wavHdr.sampleRate, 0);
+            Sampler_NewSampleSetLoop(smpl_tag.start, smpl_tag.end);
+            Sampler_SetLoopMode(1);
+        }
+    }
+    else
+    {
+        Serial.printf("End of file reached\n");
     }
 
     if (wavAdded)
