@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Marcel Licence
+ * Copyright (c) 2025 Marcel Licence
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -128,8 +128,6 @@ void setup(void)
      */
     Serial.begin(SERIAL_BAUDRATE);
     //while (!Serial);
-    delay(1000);
-    Serial.printf("Hallo\n");
     delay(1000);
     Serial.printf("ml_sampler\n");
 
