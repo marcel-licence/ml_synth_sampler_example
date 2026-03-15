@@ -166,7 +166,7 @@ jobs:
             options: ""
             manual_only: true
 
-       exclude:
+        exclude:
           - board:
               name: "ESP32S2 Dev Module"
 
