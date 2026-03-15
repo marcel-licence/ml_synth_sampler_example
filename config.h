@@ -47,7 +47,8 @@
 
 
 #define STATUS_SIMPLE
-
+#define SERIAL_BAUDRATE 115200
+#define MIDI_FMT_INT
 
 // #define MIDI_STREAM_PLAYER_ENABLED /* activate this to use the midi stream playback module */
 
