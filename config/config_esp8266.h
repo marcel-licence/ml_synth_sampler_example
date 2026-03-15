@@ -43,6 +43,7 @@
 #define I2S_NODAC /* RX pin will be used for audio output */
 #define LED_PIN     LED_BUILTIN
 
+#if 0 /* breaks the build */
 #define MIDI_PORT_ACTIVE
 
 #ifndef SWAP_SERIAL
@@ -53,7 +54,7 @@ SoftwareSerial Serial2(RXD2, TXD2);
 #define MIDI_PORT2_ACTIVE
 #endif
 
-#define SAMPLE_RATE 44100
-#define SAMPLE_BUFFER_SIZE 48
+#endif
 
 #endif /* ESP8266 */
+

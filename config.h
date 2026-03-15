@@ -47,10 +47,19 @@
 
 
 #define STATUS_SIMPLE
-#define SERIAL_BAUDRATE 115200
-#define MIDI_FMT_INT
+
 
 // #define MIDI_STREAM_PLAYER_ENABLED /* activate this to use the midi stream playback module */
+#include <ml_boards.h>
+
+
+#define SAMPLE_BUFFER_SIZE  48
+#define SAMPLE_RATE 48000
+
+//#define OUTPUT_SAW_TEST
+
+#define SERIAL_BAUDRATE 115200
+#define MIDI_FMT_INT
 
 
 #include "config/config_blackpill_f411ce.h"
