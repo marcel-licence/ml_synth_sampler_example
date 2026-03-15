@@ -14,42 +14,39 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Dieses Programm ist Freie Software: Sie kÃ¶nnen es unter den Bedingungen
+ * Dieses Programm ist Freie Software: Sie können es unter den Bedingungen
  * der GNU General Public License, wie von der Free Software Foundation,
  * Version 3 der Lizenz oder (nach Ihrer Wahl) jeder neueren
- * verÃ¶ffentlichten Version, weiter verteilen und/oder modifizieren.
+ * veröffentlichten Version, weiter verteilen und/oder modifizieren.
  *
- * Dieses Programm wird in der Hoffnung bereitgestellt, dass es nÃ¼tzlich sein wird, jedoch
- * OHNE JEDE GEWÃ„HR,; sogar ohne die implizite
- * GewÃ¤hr der MARKTFÃ„HIGKEIT oder EIGNUNG FÃœR EINEN BESTIMMTEN ZWECK.
- * Siehe die GNU General Public License fÃ¼r weitere Einzelheiten.
+ * Dieses Programm wird in der Hoffnung bereitgestellt, dass es nützlich sein wird, jedoch
+ * OHNE JEDE GEWÄHR,; sogar ohne die implizite
+ * Gewähr der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
+ * Siehe die GNU General Public License für weitere Einzelheiten.
  *
  * Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
  * Programm erhalten haben. Wenn nicht, siehe <https://www.gnu.org/licenses/>.
  */
 
 /**
- * @file config.h
+ * @file config_esp32s2.h
  * @author Marcel Licence
- * @data 03.06.2023
  *
- * @brief   This file contains the project configuration
+ * @brief Configuration for ESP32S2
  */
 
 
-#ifdef __CDT_PARSER__
-#include <cdt.h>
+#if (defined ARDUINO_LOLIN_S2_MINI) || (defined ARDUINO_ESP32S2_DEV)
+
+#define SAMPLE_RATE 44100
+#define SAMPLE_SIZE_16BIT
+#define SAMPLE_BUFFER_SIZE  48
+
+#define I2S_BCLK_PIN -1
+#define I2S_WCLK_PIN -1
+#define I2S_DOUT_PIN 17
+#define I2S_DIRECT_OUT
+#define AUDIO_MONO_DOWNMIX
+#define AUDIO_OUT_MONO
+
 #endif
-
-
-#ifndef CONFIG_H_
-#define CONFIG_H_
-
-
-#define STATUS_SIMPLE
-
-
-// #define MIDI_STREAM_PLAYER_ENABLED /* activate this to use the midi stream playback module */
-
-
-#endif /* CONFIG_H_ */

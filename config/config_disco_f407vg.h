@@ -14,42 +14,45 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Dieses Programm ist Freie Software: Sie kÃ¶nnen es unter den Bedingungen
+ * Dieses Programm ist Freie Software: Sie können es unter den Bedingungen
  * der GNU General Public License, wie von der Free Software Foundation,
  * Version 3 der Lizenz oder (nach Ihrer Wahl) jeder neueren
- * verÃ¶ffentlichten Version, weiter verteilen und/oder modifizieren.
+ * veröffentlichten Version, weiter verteilen und/oder modifizieren.
  *
- * Dieses Programm wird in der Hoffnung bereitgestellt, dass es nÃ¼tzlich sein wird, jedoch
- * OHNE JEDE GEWÃ„HR,; sogar ohne die implizite
- * GewÃ¤hr der MARKTFÃ„HIGKEIT oder EIGNUNG FÃœR EINEN BESTIMMTEN ZWECK.
- * Siehe die GNU General Public License fÃ¼r weitere Einzelheiten.
+ * Dieses Programm wird in der Hoffnung bereitgestellt, dass es nützlich sein wird, jedoch
+ * OHNE JEDE GEWÄHR,; sogar ohne die implizite
+ * Gewähr der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
+ * Siehe die GNU General Public License für weitere Einzelheiten.
  *
  * Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
  * Programm erhalten haben. Wenn nicht, siehe <https://www.gnu.org/licenses/>.
  */
 
 /**
- * @file config.h
+ * @file config_disco_f407vg.h
  * @author Marcel Licence
- * @data 03.06.2023
  *
- * @brief   This file contains the project configuration
+ * @brief Configuration for STM32 F407 (Discovery board)
  */
 
 
-#ifdef __CDT_PARSER__
-#include <cdt.h>
-#endif
+#ifdef ARDUINO_DISCO_F407VG
+
+/*
+ * max poly tested: 8 voices
+ */
+
+#include <ml_boards.h> /* requires the ML_Synth library:  https://github.com/marcel-licence/ML_SynthTools */
+
+#define BLINK_LED_PIN LED_USER_RED
+#define LED_PIN LED_USER_GREEN
+
+#define SAMPLE_BUFFER_SIZE  48
+#define SAMPLE_RATE  44100
+
+//#define MIDI_PORT1_ACTIVE /* MIDI in : PIN A10  not tested*/
+#define MIDI_PORT2_ACTIVE /* MIDI in : PIN A3 */
 
 
-#ifndef CONFIG_H_
-#define CONFIG_H_
+#endif /* ARDUINO_DISCO_F407VG */
 
-
-#define STATUS_SIMPLE
-
-
-// #define MIDI_STREAM_PLAYER_ENABLED /* activate this to use the midi stream playback module */
-
-
-#endif /* CONFIG_H_ */
