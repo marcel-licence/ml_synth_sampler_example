@@ -197,6 +197,9 @@ jobs:
       run: |
         mkdir -p ~/Arduino/libraries
 
+        git clone --depth 1 https://github.com/marcel-licence/AC101.git \
+          ~/Arduino/libraries/AC101
+
         git clone --depth 1 https://github.com/marcel-licence/ML_SynthTools.git \
           ~/Arduino/libraries/ML_SynthTools
 
