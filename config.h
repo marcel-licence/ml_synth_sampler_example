@@ -52,4 +52,20 @@
 // #define MIDI_STREAM_PLAYER_ENABLED /* activate this to use the midi stream playback module */
 
 
+#include "config/config_blackpill_f411ce.h"
+#include "config/config_black_f407ve.h"
+#include "config/config_bluepill_f103c8.h"
+#include "config/config_blue_f103ve.h"
+#include "config/config_daisy_seed.h"
+#include "config/config_disco_f407vg.h"
+#include "config/config_esp32.h"
+#include "config/config_esp32s2.h"
+#include "config/config_esp8266.h"
+#include "config/config_generic_f407vgtx.h"
+#include "config/config_rp2040.h"
+#include "config/config_rp2350.h"
+#include "config/config_teensy.h"
+#include "config/config_xiao_m0.h"
+
+
 #endif /* CONFIG_H_ */
