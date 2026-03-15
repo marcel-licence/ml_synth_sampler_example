@@ -12,6 +12,7 @@ jobs:
   build:
     name: Build ${{ matrix.board.arduino_board }} - ${{ matrix.board.name }}
     runs-on: ubuntu-latest
+
     strategy:
       fail-fast: false
       matrix:
@@ -21,60 +22,78 @@ jobs:
           - name: "ESP32 Dev Module"
             fname: "esp32"
             fqbn: "esp32:esp32:esp32"
-            core: "esp32:esp32@2.0.17"
+            core: "esp32:esp32@3.3.7"
             urls: "https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json"
             family: "ESP32"
             extra_libs: ""
             options: ""
+            fs_size: 0x140000
+            fs_base: ""
+            fs_family: ""
             manual_only: false
         
           - name: "ESP32S2 Dev Module"
             fname: "esp32s2"
             fqbn: "esp32:esp32:esp32s2"
-            core: "esp32:esp32@2.0.17"
+            core: "esp32:esp32@3.3.7"
             urls: "https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json"
             family: "ESP32"
             extra_libs: ""
             options: ""
+            fs_size: 0x140000
+            fs_base: ""
+            fs_family: ""
             manual_only: false
 
           - name: "LOLIN S2 Mini"
             fname: "lolin_s2_mini"
             fqbn: "esp32:esp32:lolin_s2_mini"
-            core: "esp32:esp32@2.0.17"
+            core: "esp32:esp32@3.3.7"
             urls: "https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json"
             family: "ESP32"
             extra_libs: ""
             options: ""
+            fs_size: 0x140000
+            fs_base: ""
+            fs_family: ""
             manual_only: false
 
           - name: "ESP32S3 Dev Module"
             fname: "esp32s3"
             fqbn: "esp32:esp32:esp32s3"
-            core: "esp32:esp32@2.0.17"
+            core: "esp32:esp32@3.3.7"
             urls: "https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json"
             family: "ESP32"
             extra_libs: ""
             options: ""
+            fs_size: 0x140000
+            fs_base: ""
+            fs_family: ""
             manual_only: false
         
           - name: "ESP32C3 Dev Module"
             fname: "esp32c3"
             fqbn: "esp32:esp32:esp32c3"
-            core: "esp32:esp32@2.0.17"
+            core: "esp32:esp32@3.3.7"
             urls: "https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json"
             family: "ESP32"
             extra_libs: ""
             options: ""
+            fs_size: 0x140000
+            fs_base: ""
+            fs_family: ""
             manual_only: true
             
           - name: "XIAO_ESP32C3"
             fname: "xiao_esp32c3"
             fqbn: "esp32:esp32:XIAO_ESP32C3"
-            core: "esp32:esp32@2.0.17"
+            core: "esp32:esp32@3.3.7"
             urls: "https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json"
             extra_libs: ""
             options: ""
+            fs_size: 0x140000
+            fs_base: ""
+            fs_family: ""
             manual_only: true
 
           # ESP8266
@@ -86,7 +105,24 @@ jobs:
             family: "ESP8266"
             extra_libs: ""
             options: ""
+            fs_size: 0x140000
+            fs_base: ""
+            fs_family: ""
             manual_only: false
+
+          - name: "LOLIN(WEMOS) D1 R2 & mini"
+            fname: "d1_mini"
+            fqbn: "esp8266:esp8266:d1_mini"
+            core: "esp8266:esp8266@3.1.2"
+            urls: "http://arduino.esp8266.com/stable/package_esp8266com_index.json"
+            family: "ESP8266"
+            extra_libs: ""
+            options: ""
+            fs_size: 0x140000
+            fs_base: ""
+            fs_family: ""
+            manual_only: false
+
 
           # RP2040
           - name: "Raspberry Pi Pico"
@@ -97,7 +133,10 @@ jobs:
             core: "rp2040:rp2040"
             urls: "https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json"
             extra_libs: "'MIDI Library@5.0.2'"
-            options: "usbstack=tinyusb"
+            options: "flash=2097152_1048576,usbstack=tinyusb"
+            fs_size: 1048576
+            fs_base: "0x100ff000"
+            fs_family: "rp2040"
             manual_only: false
 
           - name: "Raspberry Pi Pico 2"
@@ -108,7 +147,10 @@ jobs:
             core: "rp2040:rp2040"
             urls: "https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json"
             extra_libs: "'MIDI Library@5.0.2'"
-            options: "usbstack=tinyusb"
+            options: "flash=4194304_3145728,usbstack=tinyusb"
+            fs_size: 3145728
+            fs_base: "0x100fe000"
+            fs_family: "rp2040"
             manual_only: false
 
           - name: "Pimoroni PicoPlus2"
@@ -119,7 +161,10 @@ jobs:
             core: "rp2040:rp2040"
             urls: "https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json"
             extra_libs: "'MIDI Library@5.0.2'"
-            options: "usbstack=tinyusb"
+            options: "flash=16777216_15728640,usbstack=tinyusb"
+            fs_size: 15728640
+            fs_base: "0x100fe000"
+            fs_family: "data"
             manual_only: false
 
           # Seeeduino
@@ -132,6 +177,9 @@ jobs:
             urls: "https://files.seeedstudio.com/arduino/package_seeeduino_boards_index.json"
             extra_libs: ""
             options: ""
+            fs_size: ""
+            fs_base: ""
+            fs_family: ""
             manual_only: false
 
           # STM32
@@ -143,6 +191,9 @@ jobs:
             family: "STM32"
             extra_libs: ""
             options: ""
+            fs_size: ""
+            fs_base: ""
+            fs_family: ""
             manual_only: false
 
           - name: "Generic STM32H7 Series - Daisy Seed"
@@ -153,6 +204,9 @@ jobs:
             family: "STM32H7"
             extra_libs: "DaisyDuino@1.7.0"
             options: ""
+            fs_size: ""
+            fs_base: ""
+            fs_family: ""
             manual_only: false
 
           # Teensy
@@ -164,31 +218,31 @@ jobs:
             family: "Teensy"
             extra_libs: ""
             options: ""
+            fs_size: ""
+            fs_base: ""
+            fs_family: ""
             manual_only: true
 
         exclude:
-          - board:
-              name: "ESP32S2 Dev Module"
-
-          - board:
-              name: "LOLIN S2 Mini"
-
-          - board:
-              name: "ESP32C3 Dev Module"
-
-          - board:
+          - board: # no audio output at the moment
               name: "XIAO_ESP32C3"
 
-          - board:
+          - board: # pin definition missing
+              name: "Generic ESP8266 Module"
+              
+          - board: # no audio output at the moment
+              name: "ESP32C3 Dev Module"
+
+          - board: # does not support littleFS
               name: "Seeeduino XIAO (SAMD21)"
 
-          - board:
+          - board: # does not support littleFS
               name: "Generic STM32F4 Series - BlackPill F411CE"
 
-          - board:
+          - board: # does not support littleFS
               name: "Generic STM32H7 Series - Daisy Seed"
 
-          - board:
+          - board: # does not support littleFS
               name: "Teensy 4.1"
 
     steps:
@@ -222,14 +276,28 @@ jobs:
       run: |
         mkdir -p ~/Arduino/libraries
 
-        git clone --depth 1 https://github.com/marcel-licence/AC101.git \
-          ~/Arduino/libraries/AC101
-
         git clone --depth 1 https://github.com/marcel-licence/ML_SynthTools.git \
           ~/Arduino/libraries/ML_SynthTools
 
         git clone --depth 1 https://github.com/marcel-licence/ML_SynthTools_Lib.git \
           ~/Arduino/libraries/ML_SynthTools_Lib
+
+    - name: Generate embedded MOD data
+      if: false
+      # if: matrix.board.family == 'Teensy' || matrix.board.family == 'STM32' || matrix.board.family == 'SAMD21'
+      run: |
+        mkdir -p src/generated
+
+        # Download samples and sf2
+        curl -L "http://www.williamkage.com/snes_soundfonts/yoshis_island_soundfont.zip" -o yoshis_island_soundfont.zip
+        unzip -o yoshis_island_soundfont.zip -d data
+
+        echo "Data contents:"
+        ls -lah data
+
+        # Convert to C array
+        xxd -i yoshis_island_soundfont.mod > src/generated/yoshis_island_soundfont.c
+
 
     - name: Compile Sketch
       run: |
@@ -253,13 +321,94 @@ jobs:
 
     - name: Rename UF2 (RP2xxx)
       if: contains(matrix.board.family, 'rp2')
-      run: mv build/${{ matrix.board.fname }}/*.uf2 build/firmware.uf2 || true
+      run: mv build/${{ matrix.board.fname }}/*.uf2 build/${{ matrix.board.fname }}/firmware.uf2 || true
 
+    - name: Prepare data folder
+      run: |
+        mkdir -p data
+        curl -L "http://www.williamkage.com/snes_soundfonts/yoshis_island_soundfont.zip" -o yoshis_island_soundfont.zip
+        unzip -o yoshis_island_soundfont.zip -d data
+        echo "Data contents:"
+        ls -lah data
+
+    - name: Locate mklittlefs
+      id: findfs
+      run: |
+        TOOL=$(find ~/.arduino15/packages -name mklittlefs -type f | head -n 1)
+    
+        if [ -z "$TOOL" ]; then
+          echo "mklittlefs not found!"
+          exit 1
+        fi
+    
+        echo "Found: $TOOL"
+        echo "MKLITTLEFS=$TOOL" >> $GITHUB_ENV
+      
+    - name: Build LittleFS Image (ESP32)
+      if: matrix.board.family == 'ESP32'
+      run: |
+        mkdir -p build/${{ matrix.board.fname }}
+        "$MKLITTLEFS" \
+          -c data \
+          -b 4096 \
+          -p 256 \
+          -s 0x140000 \
+          build/${{ matrix.board.fname }}/littlefs.bin
+      
+    - name: Build LittleFS Image
+      if: matrix.board.fs_size != ''
+      run: |
+        mkdir -p build/${{ matrix.board.fname }}
+    
+        "$MKLITTLEFS" \
+          -c data \
+          -b 4096 \
+          -p 256 \
+          -s ${{ matrix.board.fs_size }} \
+          build/${{ matrix.board.fname }}/littlefs.bin
+
+    - name: Locate picotool
+      if: contains(matrix.board.family, 'rp2')
+      run: |
+        TOOL=$(find ~/.arduino15/packages/rp2040 -name picotool -type f | head -n 1)
+    
+        if [ -z "$TOOL" ]; then
+          echo "picotool not found!"
+          exit 1
+        fi
+    
+        echo "PICOTOOL=$TOOL" >> $GITHUB_ENV
+
+    - name: Convert LittleFS to UF2 (RP2040)
+      if: matrix.board.fs_base != ''
+      run: |
+        "$PICOTOOL" uf2 convert \
+          build/${{ matrix.board.fname }}/littlefs.bin \
+          -t bin \
+          build/${{ matrix.board.fname }}/littlefs.uf2 \
+          -o ${{ matrix.board.fs_base }} \
+          --family ${{ matrix.board.fs_family }}
+
+    - name: Locate elf2uf2
+      if: contains(matrix.board.family, 'rp2')
+      run: |
+        TOOL=$(find ~/.arduino15/packages/rp2040 -name elf2uf2 -type f | head -n 1)
+        echo "ELF2UF2=$TOOL" >> $GITHUB_ENV
+    
+    - name: Convert LittleFS to UF2 (RP2040)
+      if: false # contains(matrix.board.family, 'rp2')
+      run: |
+        "$ELF2UF2" \
+          build/${{ matrix.board.fname }}/littlefs.bin \
+          build/${{ matrix.board.fname }}/littlefs_b.uf2
+    
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
         name: firmware-${{ matrix.board.fname }}
-        path: build/${{ matrix.board.fname }}
+        path: |
+          build/${{ matrix.board.fname }}
+          src/generated
 
     - name: Create Release
       if: startsWith(github.ref, 'refs/tags/')
@@ -269,5 +418,6 @@ jobs:
           build/${{ matrix.board.fname }}/**/*.bin
           build/${{ matrix.board.fname }}/**/*.uf2
           build/${{ matrix.board.fname }}/**/*.hex
+          build/${{ matrix.board.fname }}/**/*.txt
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
