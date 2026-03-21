@@ -168,9 +168,6 @@ jobs:
 
         exclude:
           - board:
-              name: "ESP32S2 Dev Module"
-
-          - board:
               name: "LOLIN S2 Mini"
 
           - board:

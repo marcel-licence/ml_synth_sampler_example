@@ -29,107 +29,45 @@
  */
 
 /**
- * @file ml_vgm_player.ino
+ * @file app.h
  * @author Marcel Licence
  * @date 08.03.2026
  *
- * @brief This is the main project file which handles the app startup and loop calls
- *        You will find the main code in app.cpp
+ * @brief Declarations of the app
  */
+ 
+
+#ifndef APP_H_
+#define APP_H_
 
 
-#include "app.h"
+#include "config.h"
+#include <stdint.h>
+
+void App_Setup(void);
+void App_Loop(void);
+
+void App_Setup1(void);
+void App_Loop1(void);
 
 
-#if (defined ESP32) && (SOC_CPU_CORES_NUM > 1)
-void Core0TaskInit(void);
-void Core0Task(void *parameter);
+#ifdef REVERB_ENABLED
+void AppReverb_SetLevel(uint8_t param __attribute__((unused)), uint8_t value);
 #endif
+void AppTremolo_SetDepth(uint8_t param __attribute__((unused)), uint8_t value);
+void AppBtn(uint8_t param, uint8_t value);
+void AppBtnB(uint8_t param, uint8_t value);
+void AppSetInputGain(uint8_t unused __attribute__((unused)), uint8_t value);
+void App_DelayQ_SetLength(uint8_t unused __attribute__((unused)), uint8_t value);
+void Lfo1_SetSpeed(uint8_t unused __attribute__((unused)), uint8_t value);
+void AppVibrato_SetDepth(uint8_t param __attribute__((unused)), uint8_t value);
+void AppVibrato_SetIntensity(uint8_t param __attribute__((unused)), uint8_t value);
+void PitchShifter_SetSpeed(uint8_t unused __attribute__((unused)), uint8_t value);
+void PitchShifter_SetMix(uint8_t unused __attribute__((unused)), uint8_t value);
+void PitchShifter_SetFeedback(uint8_t unused __attribute__((unused)), uint8_t value);
 
-#ifdef ARDUINO_RP2040
-volatile bool g_setup_done = false;
-#endif
-
-
-void setup()
-{
-    Serial.begin(115200);
-    App_Setup();
-
-#ifdef ARDUINO_RP2040
-    g_setup_done = true;
-#endif
-
-#if (defined ESP32) && (SOC_CPU_CORES_NUM > 1)
-    Core0TaskInit();
-#endif
-}
-
-void loop()
-{
-    App_Loop();
-}
-
-#ifdef ARDUINO_RP2040
-
-void wait_until_setup_finished(void)
-{
-    while (!g_setup_done)
-    {
-        delay(1);
-    }
-}
-
-void setup1()
-{
-    wait_until_setup_finished();
-    App_Setup1();
-}
-
-void loop1()
-{
-    App_Loop1();
-}
-#endif
+/* load data */
+void SoundFontSamplerCtrl(int i);
 
 
-#if (defined ESP32) && (SOC_CPU_CORES_NUM > 1)
-/*
- * Core 0
- */
-/* this is used to add a task to core 0 */
-TaskHandle_t Core0TaskHnd;
-
-void Core0TaskInit(void)
-{
-    /* we need a second task for the terminal output */
-    xTaskCreatePinnedToCore(Core0Task, "CoreTask0", 8000, NULL, 4, &Core0TaskHnd, 0);
-}
-
-void Core0TaskSetup(void)
-{
-    /*
-     * init your stuff for core0 here
-     */
-    App_Setup1();
-}
-
-void Core0TaskLoop(void)
-{
-    App_Loop1();
-}
-
-void Core0Task(void *parameter)
-{
-    Core0TaskSetup();
-
-    while (true)
-    {
-        Core0TaskLoop();
-
-        /* this seems necessary to trigger the watchdog */
-        delay(1);
-        yield();
-    }
-}
-#endif
+#endif /* APP_H_ */
