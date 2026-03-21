@@ -46,6 +46,8 @@
 #include "sf_to_sampler.h"
 
 
+#include <ml_sampler.h>
+
 /*
  * extern function definitions
  */

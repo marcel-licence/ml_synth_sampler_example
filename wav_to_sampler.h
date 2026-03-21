@@ -44,7 +44,8 @@
 /*
  * includes
  */
-#include "fs/fs_access.h"
+ #include "config.h"
+#include <fs/fs_access.h>
 
 
 /*

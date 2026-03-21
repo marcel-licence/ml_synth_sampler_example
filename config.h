@@ -50,7 +50,6 @@
 
 
 // #define MIDI_STREAM_PLAYER_ENABLED /* activate this to use the midi stream playback module */
-#include <ml_boards.h>
 
 
 #define SAMPLE_BUFFER_SIZE  48
@@ -76,6 +75,12 @@
 #include "config/config_rp2350.h"
 #include "config/config_teensy.h"
 #include "config/config_xiao_m0.h"
+
+/*
+ * include the board configuration
+ * there you will find the most hardware depending pin settings
+ */
+#include <ml_boards.h> /* requires the ML_Synth library:  https://github.com/marcel-licence/ML_SynthTools */
 
 
 #endif /* CONFIG_H_ */

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Marcel Licence
+ * Copyright (c) 2026 Marcel Licence
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,13 +31,23 @@
 /**
  * @file ml_inline.ino
  * @author Marcel Licence
- * @data 20.10.2023
  *
- * @brief   Including code from ML_SynthTools library which will be compiled within this project
+ * @brief Including code from ML_SynthTools library which will be compiled within this project
+ * @see https://github.com/marcel-licence/ML_SynthTools
  */
 
 
+#include "config.h"
+
+
+#define ML_SYNTH_INLINE_DECLARATION
+#include <ml_inline.h>
+#undef ML_SYNTH_INLINE_DECLARATION
+
 #define ML_SYNTH_INLINE_DEFINITION
 #include <ml_inline.h>
+#ifdef OLED_OSC_DISP_ENABLED
+#define ML_SCOPE_OLED
+#include <ml_scope_oled_inline.h>
+#endif
 #undef ML_SYNTH_INLINE_DEFINITION
-
