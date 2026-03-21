@@ -110,7 +110,7 @@ ML_Vibrato vibrato(SAMPLE_RATE);
 
 ML_PitchShifter pitchShifter(SAMPLE_RATE);
 
-char shortName[] = "ML_Sampler";
+const char shortName[] = "ML_Sampler";
 
 
 #ifdef SAMPLER_DYNAMIC_BUFFER_SIZE
